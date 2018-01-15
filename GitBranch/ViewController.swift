@@ -9,17 +9,36 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet weak var titleLabel: UILabel! {
+        didSet {
+            titleLabel.text = message()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func message() -> String {
+        // resgatar hora atual
+        let now = Date()
+        // Criar datas de comparação
+        guard let midDay = Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: now) else {
+            return ""
+        }
+        guard let sixOClock = Calendar.current.date(bySettingHour: 18, minute: 0, second: 0, of: now) else {
+            return ""
+        }
+        
+        if now >= midDay && now <= sixOClock {
+            return "Boa Tarde"
+        } else if now >= sixOClock {
+            return "Boa noite"
+        } else {
+            return "Bom dia"
+        }
     }
-
 
 }
 
